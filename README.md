@@ -29,11 +29,12 @@ The second input is a directory that contains a file for each strain that contai
 annotation file has the form::
 
 
-  |  locus_tag    | ftype |  length_bp | gene  |  EC_number  | COG       |   product                           |          |---------------|-------|------------|-------|-------------|-----------|-------------------------------------| 
-  | LHNLDECA_00001| CDS   | 1368       | alr   |  5.1.1.1    | COG0787   |  Alanine racemase                   |
-  | LHNLDECA_00002| CDS   | 525        | NA    |  NA         | NA        |  hypothetical protein               |
-  | LHNLDECA_00003| CDS   | 501        | luxS  |  4.4.1.21   | COG1854   |  S-ribosylhomocysteine lyase        |
-  | LHNLDECA_00004| CDS   | 1080       | hcxA  |  1.1.1.-    | COG0371   |  Hydroxycarboxylate dehydrogenase A |
+|  locus_tag    | ftype |  length| gene  |  EC_number  | COG       |   product                           |                                                                          
+|---------------|-------|--------|-------|-------------|-----------|-------------------------------------|
+| LHNLDECA_00001| CDS   | 1368   | alr   |  5.1.1.1    | COG0787   |  Alanine racemase                   |
+| LHNLDECA_00002| CDS   | 525    | NA    |  NA         | NA        |  hypothetical protein               |
+| LHNLDECA_00003| CDS   | 501    | luxS  |  4.4.1.21   | COG1854   |  S-ribosylhomocysteine lyase        |
+| LHNLDECA_00004| CDS   | 1080   | hcxA  |  1.1.1.-    | COG0371   |  Hydroxycarboxylate dehydrogenase A |
 
 
 
