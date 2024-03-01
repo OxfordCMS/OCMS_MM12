@@ -159,7 +159,7 @@ def build_annotation(infile, annotation_type="gene"):
             if annotation_type == "gene":
                 annotations[strain].append(annotation.gene)
             elif annotation_type == "ko":
-                annotations[strain].append(annotation.ko)
+                annotations[strain].append(annotation.ec)
             elif annotation_type == "cog":
                 annotations[strain].append(annotation.cog)
     return (annotations)
