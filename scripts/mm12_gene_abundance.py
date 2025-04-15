@@ -95,7 +95,6 @@ def read_relab(relab_file):
     sample_dict = collections.defaultdict(dict)
     relab = open(relab_file)
     samples = relab.readline().strip("\n").split("\t")    
-    print(samples)    
 
     sample_dict = collections.defaultdict(dict)
     for line in relab.readlines():
@@ -218,7 +217,6 @@ def main(argv=None):
     parser.add_argument("-o", "--outfile", dest="outfile", type=str,
                         help="where to output the resulting data")
 
-
     # add common options (-h/--help, ...) and parse command line
     (args) = E.start(parser, argv=argv)
 
@@ -251,8 +249,6 @@ def main(argv=None):
             # the relative abundance of each gene is calculated 
             # as the relative abundance of the organism/number of genes
             for g in list(annotation.values())[0]:
-                if g == "gene":
-                    continue
                 try: 
                   gene_relabs[sample][g] = gene_relabs[sample][g] + float(relab)/float(ngenes)
                 except KeyError:
@@ -266,7 +262,6 @@ def main(argv=None):
 
     # write footer and output benchmark information.
     E.stop()
-
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
