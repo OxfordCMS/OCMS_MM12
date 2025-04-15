@@ -95,7 +95,6 @@ def read_relab(relab_file):
     sample_dict = collections.defaultdict(dict)
     relab = open(relab_file)
     samples = relab.readline().strip("\n").split("\t")    
-    print(samples)    
 
     sample_dict = collections.defaultdict(dict)
     for line in relab.readlines():
@@ -148,17 +147,18 @@ def build_annotation(infile, annotation_type="gene"):
     of genes as values. type has to be one of 
     gene, ko or cog
     '''
-    assert annotation_type in ["gene", "ko", "cog"], "annotation_type must be one of gene, ko or cog" 
+    assert annotation_type in ["gene", "ec", "cog"], "annotation_type must be one of gene, ec or cog" 
 
     strain = os.path.basename(infile).replace(".tsv", "")
     annotations = collections.defaultdict(list)
     with open(infile) as inf:
+        inf.readline()
         for line in inf.readlines():
             data = line.strip("\n").split("\t")
             annotation = Annotation(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
             if annotation_type == "gene":
                 annotations[strain].append(annotation.gene)
-            elif annotation_type == "ko":
+            elif annotation_type == "ec":
                 annotations[strain].append(annotation.ec)
             elif annotation_type == "cog":
                 annotations[strain].append(annotation.cog)
@@ -212,11 +212,10 @@ def main(argv=None):
                         help="supply filel with relative abundances of MM12 members")
     parser.add_argument("-d", "--annotations-dir", dest="annotations_dir", type=str,
                         help="supply directory containing annotation files")
-    parser.add_argument("-t", "--annotation-type", dest="annotation_type", type=str, choices=["gene", "ko", "cog"],
-                        help="which type of annotation to use: gene, ko or cog")
+    parser.add_argument("-t", "--annotation-type", dest="annotation_type", type=str, choices=["gene", "ec", "cog"],
+                        help="which type of annotation to use: gene, ec or cog")
     parser.add_argument("-o", "--outfile", dest="outfile", type=str,
                         help="where to output the resulting data")
-
 
     # add common options (-h/--help, ...) and parse command line
     (args) = E.start(parser, argv=argv)
@@ -248,16 +247,14 @@ def main(argv=None):
             ngenes = get_number_of_genes(annotation)
             
             # the relative abundance of each gene is calculated 
-            # as the relative abundance of the organism/mnumber of genes
+            # as the relative abundance of the organism/number of genes
             for g in list(annotation.values())[0]:
-                if g == "gene":
-                    continue
                 try: 
                   gene_relabs[sample][g] = gene_relabs[sample][g] + float(relab)/float(ngenes)
                 except KeyError:
                   gene_relabs[sample][g] = float(relab)/float(ngenes)
     
-    # get pandas dataframe for putput
+    # get pandas dataframe for output
     df = pd.DataFrame(gene_relabs)
 
     # write table
@@ -265,7 +262,6 @@ def main(argv=None):
 
     # write footer and output benchmark information.
     E.stop()
-
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
